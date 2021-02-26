@@ -119,3 +119,48 @@ colum_mean <- function(m, removeNA = TRUE){ ## Variable logica para eliminar val
   means
 }
 
+##Functions
+## x<-function(<arguments>)
+## {
+##     Do something
+## }
+## sd(data, na.rm=T/F) Desviacion estandar
+## Cuando se crean funciones se pueden estipilar argumentos con valores predeterminados
+
+f<-function(a, b=1, c=0, d = TRUE, e = NULL){
+  print(a)
+  print(b)
+}
+
+## The '...' argument
+## Lista de argumentos que pueden ser pasados de otras funciones
+
+myplot<- function(x, y, type="l", ...){   ## A la funcion plot le quiero cambiar el predeterminado de puntos a lineas "l"
+  plot(x, y, type= type, ...)             ## la funcion plot() va a tomar los mismos argumentos faltantes con ...
+}
+
+#Funcion que devuelve funcion
+
+make.power<- function(x){
+  pow<-function(n){
+    x^n
+  }
+  pow
+}
+
+cube<-make.power(3)
+square<-make.power(2)
+
+cube(3)
+square(2)
+
+
+#Dates and Times in R
+
+d<-as.Date("2021-02-26")
+unclass(d)       ##Numero de dias desde 1970-01-01
+
+t<- Sys.time()   ## Hora del programa en la que se ejecuta la funcion
+p<- as.POSIXlt(t)
+names(unclass(p))
+
