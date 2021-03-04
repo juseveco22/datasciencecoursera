@@ -12,11 +12,16 @@ for(i in seq_along(file_path)){
   
 }
 
+## Leer todos los datos intento
 
-t_mean<-numeric()
-for(i in 1:10){
-  print(mean(monitor[i[,2]]), na.rm=TRUE)
+mydata<-unzip("specdata.zip")
+vec<-list(332)
+for(i in 1:332){
+  vec[i]<-read.csv(mydata[i])
 }
+
+
+
 
 
 #Forma larga
@@ -117,3 +122,5 @@ d20s<-d20[,2]
 d20n<-d20[,3]
 y20s<-d20s[!is.na(d20s)]
 y20n<-d20n[!is.na(d20n)]
+
+
