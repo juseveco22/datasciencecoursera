@@ -62,7 +62,41 @@ apply(a, c(1, 2), mean)   ##El argumento c(1, 2) me mantiene dos dimensiones per
 rowMeans(a, dims =2)      ## Esta misma operacion se puede realizar con la funcion rowMeans()
 
 
+## mapply() pasa mas de una lista para ser utilizada dentro de los argumentos de una funcion
+
+list(rep(1, 4), rep(2, 3), rep(3, 2), rep(4, 1))
+
+mapply(rep, 1:4, 4:1)     ##Facilita la escritura de la expresion anterior. Aqui la funcion rep() tiene
+                          ## dos argumentos, el primero es el numero y el segundo las veces que se repite
+                          ## asi, la funcion dice: repita los numero del 1 a l 4 (1:4), 4 veces 1, 2 veces 3,
+                          ## 3 veces 2 y 4 veces 1 (4:1)
+
+## vectorizando una funcion
+
+noise <- function(n, mean, sd){
+        rnorm(n, mean, sd)
+}
+
+noise(5,1,2)
+
+noise(1:5, 1:5, 2) ## La funcion por si sola no funciona, no da lo que busco.
+
+mapply(noise, 1:5, 1:5, 2)  ## Cambio el numero de numeros y la media
+
+list(noise(1,1,2), noise(2,2,2), noise(3,3,2), noise(4,4,2), noise(5,5,2))  ##forma larga
 
 
+
+## tapply(). sirve para aplicar una funcion sobre una seccion de un vector
+## tapply(X, INDEX, FUN, ...)
+
+
+x<- c(rnorm(10), runif(10), rnorm(10,1))
+f<- gl(3, 10)       #vector de 3 niveles (1, 2, 3) donde cada nivel se repite 10 veces
+
+tapply(x,f, mean)   ## Encuentra el promedio por grupos definidos por los niveles de f
+tapply(x,f, mean, simplify = FALSE)  ##Me da como resultado una lista
+
+tapply(x, f, range)  ##Devuelve el maximo y minimo de las observaciones por nivel
 
 
