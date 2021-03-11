@@ -100,3 +100,45 @@ tapply(x,f, mean, simplify = FALSE)  ##Me da como resultado una lista
 tapply(x, f, range)  ##Devuelve el maximo y minimo de las observaciones por nivel
 
 
+## split() -> toma un vector y lo separa en grupos determinados por un factor o lista de factores
+## split(VECTOR, FACTOR, ...)
+
+
+x<- c(rnorm(10), runif(10), rnorm(10,1))
+f<- gl(3, 10)
+split(x,f)       ## la funcion simpre retorna una LISTA
+
+
+## A esta separacion luego se le puede aplicar una de las funciones anteriores
+
+lapply(split(x,f), mean)
+
+
+## Otra aplicacion
+
+library(datasets)
+head(airquality)
+
+s<- split(airquality, airquality$Month)  ##Separo el data frame por meses como factor
+
+lapply(s, function(x) colMeans(x[, c('Ozone', 'Solar.R', 'Wind')], na.rm=TRUE))  ##Me devuelve una lista
+
+sapply(s, function(x) colMeans(x[, c('Ozone', 'Solar.R', 'Wind')], na.rm=TRUE))  ##Me devuelve una matriz 
+## x[, c('Ozone', 'Solar.R', 'Wind') me dice todas las filas de las columnas dentro de c()
+
+
+## splitting on more than one level
+
+x<- rnorm(10)
+f1<- gl(2,5)
+f2<- gl(5,2)
+
+interaction(f1, f2)    ##Combina todos los niveles de f1 con todos los niveles de f2
+
+str(split(x, list(f1, f2)))   ##Puedo o no usar la funcion interaction() para formar los factores
+
+str(split(x, list(f1, f2), drop=TRUE))
+
+
+
+
