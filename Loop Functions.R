@@ -141,4 +141,22 @@ str(split(x, list(f1, f2), drop=TRUE))
 
 
 
+## Final Semana 3
+
+library(datasets)
+data("iris")
+
+apply(iris[, 1:4], 2, mean)
+colMeans(iris[,1:4])
+sapply(split(iris$Sepal.Length, iris$Species), mean)
+
+library(datasets)
+data(mtcars)
+
+split(mtcars, mtcars$cyl)
+tapply(mtcars$cyl, mtcars$mpg, mean)
+sapply(split(mtcars$mpg, mtcars$cyl), mean)
+tapply(mtcars$mpg, mtcars$cyl, mean)
+
+
 
