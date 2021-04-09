@@ -77,4 +77,59 @@ sum(dat$Zip*dat$Ext,na.rm=T)
 
 
 
+## MySQL
+
+library(RMySQL)
+library(DBI)
+
+## Abrir una conexion
+ucscDb <- dbConnect(MySQL(), user="genome", host = "genome-mysql.cse.ucsc.edu") ## Conectar con DB
+
+## Pasar una Query
+result <- dbGetQuery(ucscDb, "show databases;"); dbDisconnect(ucscDb) ## Desconectarme de la DB
+
+result
+
+hg19 <- dbConnect(MySQL(), user="genome", db="hg19", host = "genome-mysql.cse.ucsc.edu")
+
+allTables<- dbListTables(hg19)  ## Mostrar las tablas del DB
+length(allTables)               ## Numero de todas las tablas
+
+allTables[1:5]
+
+dbListFields(hg19, "affyU133Plus2")  ## Ver los campos de la tabla affyU133Plus2
+
+dbGetQuery(hg19, "select count(*) from affyU133Plus2")
+
+affyData <- dbReadTable(hg19, "affyU133Plus2")
+head(affyData)
+
+
+query <- dbSendQuery(hg19, "select * from affyU133Plus2 where misMatches between 1 and 3")
+affyMis <- fetch(query); quantile(affyMis$misMatches)
+
+affyMisSmall <- fetch(query, n=10); dbClearResult(query);
+
+dim(affyMisSmall)
+
+dbDisconnect(hg19)
+
+
+## WebSites
+
+con =url("http://scholar.google.com/citations?user=HI-I6C0AAAAJ&hl=en")
+htmlCode=readLines(con)        
+close(con)        
+htmlCode
+
+install.packages("XML")
+library(XML)
+library(httr)
+
+url <- "http://scholar.google.com/citations?user=HI-I6C0AAAAJ&hl=en"  
+html2 =GET(url)
+content2=content(html2, as ="text")
+parsedHtml= htmlParse(content2, asText = TRUE)
+xpathSApply(parsedHtml, "//title", xmlValue)
+
 
