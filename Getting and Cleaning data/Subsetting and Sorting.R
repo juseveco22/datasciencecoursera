@@ -104,6 +104,36 @@ xt<- xtabs(Freq ~ Gender + Admit, data=df)
 xt
 
 
+## Creating new variables
+
+restData
+
+## Crear secuencias
+
+s1 <- seq(1,10, by=2); s1
+s2 <- seq(1,10, length=3); s2
+x <- c(1,3,8,25,100); seq(along = x)
+
+
+## Subsetting variables
+
+restData$nearMe <- restData$nghbrhd %in% c("Roland Park", "Homeland")
+table(restData$nearMe)
+install.packages("Hmisc")
+library(Hmisc)
+
+restData$cncldst_group = cut2(restData$cncldst, g=4)
+table(restData$cncldst_group)
+
+
+##Levels of factorvariables
+
+yesno <- sample(c("yes", "no"), size=10, replace=TRUE)
+yesnofac <- factor(yesno, levels = c("yes", "no"))
+relevel(yesnofac, ref = "yes")
+as.numeric(yesnofac)
+
+
 
 
 
